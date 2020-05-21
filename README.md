@@ -1,7 +1,8 @@
-# Twitter Stream analyser
+# Twitter Stream analyser ![Java CI with Maven](https://github.com/soumencemk/twitterAnalyser/workflows/Java%20CI%20with%20Maven/badge.svg)
+
 Using Twitter4j and MonkeyLearn API
 Demo : [https://twittersoumen.herokuapp.com/](https://twittersoumen.herokuapp.com/)
-#How to use
+# How to use
 * Register for Twitter4j and Monkey learn age get the API Keys
 * Relace the values in `application.properties` and `twitter4j.properties`-
 application.properties:  
