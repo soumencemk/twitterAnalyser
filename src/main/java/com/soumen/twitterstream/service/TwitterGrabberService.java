@@ -31,7 +31,7 @@ public class TwitterGrabberService {
         TwitterStream twitterStream = TwitterStreamFactory.getSingleton();
         twitterStream.addListener(new TwitterStreamListner(queue));
         twitterStream.filter(text);
-        return Flux.interval(Duration.ofMillis(1000))
+        return Flux.interval(Duration.ofMillis(500))
                 .onBackpressureDrop()
                 .map(aLong ->
                 {
