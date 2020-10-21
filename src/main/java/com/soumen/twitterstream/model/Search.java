@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 public class Search {
     @Id
-    private Long id;
+    private String id;
     private String userName;
     private String searchText;
 }
