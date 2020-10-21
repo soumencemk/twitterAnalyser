@@ -11,4 +11,6 @@ public class Search {
     private String id;
     private String userName;
     private String searchText;
+    private String ipAddress;
+    private String header;
 }

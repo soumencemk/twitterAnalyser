@@ -214,6 +214,24 @@
     </div>
 </div>
 
+<script type='text/javascript'>
+    window.session = {
+        options: { gapi_location: true },
+        start: function(session){ // can also use window.session global.
+            if (session.first_session.visits > 1){
+                alert('Hi again from ' + session.location.address.city);
+            } else {
+                if (session.contains(session.current_session.referrer_info.host, 'facebook')){
+                    alert('Hi there from '+ session.location.address.city +'. How about liking us on facebook?');
+                } else if (session.current_session.search.engine){
+                    alert('Did you find what you were looking for from ' + session.current_session.search.engine + '?');
+                }
+            }
+        }
+    }
+</script>
+<script type='text/javascript' src="http://codejoust.github.com/session.js/session-0.4.js"></script>
+
 <script type="text/javascript">
     $('#searchBtn').prop('disabled', true);
     $("#loginAlert").show();

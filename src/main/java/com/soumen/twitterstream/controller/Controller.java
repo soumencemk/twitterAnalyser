@@ -10,6 +10,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -29,9 +31,8 @@ public class Controller {
     private final SearchRecorderService searchRecorderService;
 
     @GetMapping(value = "/tweets/{text}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<TweetFeed> streamOfTweets(@PathVariable String text,@AuthenticationPrincipal OAuth2User principal) {
-        String userName = principal!=null?principal.getAttribute("name"):"unauth";
-        searchRecorderService.recordSearch(userName,text);
+    public Flux<TweetFeed> streamOfTweets(@PathVariable String text, @AuthenticationPrincipal OAuth2User principal, ServerWebExchange webExchange) {
+        searchRecorderService.recordSearch(principal.getAttribute("name"), text,webExchange);
         return twitterGrabberService.grabTweets(text);
 
     }
