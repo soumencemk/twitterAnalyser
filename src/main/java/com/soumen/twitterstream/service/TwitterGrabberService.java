@@ -37,10 +37,8 @@ public class TwitterGrabberService {
                 {
                     try {
                         Status tweet = queue.poll();
-                        log.info(tweet);
                         return new TweetFeed(tweet);
                     } catch (Exception e) {
-                        log.error(e);
                         return new TweetFeed();
                     }
                 }).filter(tweetFeed -> "en".equalsIgnoreCase(tweetFeed.getLanguage()))

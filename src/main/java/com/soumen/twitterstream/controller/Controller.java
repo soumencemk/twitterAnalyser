@@ -29,8 +29,9 @@ public class Controller {
     private final SearchRecorderService searchRecorderService;
 
     @GetMapping(value = "/tweets/{text}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<TweetFeed> streamOfTweets(@PathVariable String text) {
-        searchRecorderService.recordSearch(text);
+    public Flux<TweetFeed> streamOfTweets(@PathVariable String text,@AuthenticationPrincipal OAuth2User principal) {
+        String userName = principal!=null?principal.getAttribute("name"):"unauth";
+        searchRecorderService.recordSearch(userName,text);
         return twitterGrabberService.grabTweets(text);
 
     }
