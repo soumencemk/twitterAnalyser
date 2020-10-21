@@ -1,6 +1,7 @@
 package com.soumen.twitterstream.controller;
 
 import com.soumen.twitterstream.model.TweetFeed;
+import com.soumen.twitterstream.service.SearchRecorderService;
 import com.soumen.twitterstream.service.TwitterGrabberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,9 +26,11 @@ import java.util.Map;
 public class Controller {
 
     private final TwitterGrabberService twitterGrabberService;
+    private final SearchRecorderService searchRecorderService;
 
     @GetMapping(value = "/tweets/{text}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<TweetFeed> streamOfTweets(@PathVariable String text) {
+        searchRecorderService.recordSearch(text);
         return twitterGrabberService.grabTweets(text);
 
     }

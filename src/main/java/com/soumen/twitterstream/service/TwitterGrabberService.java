@@ -2,6 +2,7 @@ package com.soumen.twitterstream.service;
 
 import com.soumen.twitterstream.model.TweetFeed;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import twitter4j.Status;
@@ -20,6 +21,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class TwitterGrabberService {
 
     private final TwitterSentimentAnalyser analyser;
@@ -34,8 +36,11 @@ public class TwitterGrabberService {
                 .map(aLong ->
                 {
                     try {
-                        return new TweetFeed(queue.poll());
+                        Status tweet = queue.poll();
+                        log.info(tweet);
+                        return new TweetFeed(tweet);
                     } catch (Exception e) {
+                        log.error(e);
                         return new TweetFeed();
                     }
                 }).filter(tweetFeed -> "en".equalsIgnoreCase(tweetFeed.getLanguage()))

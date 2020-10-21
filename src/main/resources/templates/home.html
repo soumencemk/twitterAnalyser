@@ -7,7 +7,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180851191-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-180851191-1');
@@ -150,20 +154,30 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-user">&nbsp;</i> <span id="user"></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item unauthenticated" href="/oauth2/authorization/github"><i class="fab fa-github"></i> GitHub</a>
-                    <a class="dropdown-item unauthenticated" href="/oauth2/authorization/google"><i class="fab fa-google"></i> Google</a>
-                    <a class="dropdown-item unauthenticated" href="/oauth2/authorization/facebook"><i class="fab fa-facebook"></i> Facebook</a>
-                    <a class="dropdown-item authenticated" href="#" onclick="logout();"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                    <a class="dropdown-item unauthenticated" href="/oauth2/authorization/github"><i
+                            class="fab fa-github"></i> GitHub</a>
+                    <a class="dropdown-item unauthenticated" href="/oauth2/authorization/google"><i
+                            class="fab fa-google"></i> Google</a>
+                    <a class="dropdown-item unauthenticated" href="/oauth2/authorization/facebook"><i
+                            class="fab fa-facebook"></i> Facebook</a>
+                    <a class="dropdown-item authenticated" href="#" onclick="logout();"><i
+                            class="fas fa-sign-out-alt"></i> Sign Out</a>
                 </div>
             </li>
         </ul>
     </div>
 </nav>
+<br/>
+<div id="loginAlert" class="alert alert-danger" role="alert">
+    <i class="fas fa-exclamation-triangle"></i> Please login before using this service
+</div>
 <div class="input-group" style="padding-top: 100px">
+
     <input id="searchText" type="text" class="form-control w-60" placeholder="Search Twitter">
     <button id="searchBtn" type="button" class="btn btn-default btn-sm" onclick="loadTweets();">
         <i class="fas fa-search"></i></span> Search
@@ -201,26 +215,32 @@
 </div>
 
 <script type="text/javascript">
+    $('#searchBtn').prop('disabled', true);
+    $("#loginAlert").show();
     $(".unauthenticated").show();
     $(".authenticated").hide();
     $.get("/user", function (data) {
-        if(data.name) {
+        if (data.name) {
             $("#user").html(data.name);
             $(".unauthenticated").hide();
             $(".authenticated").show();
+            $('#searchBtn').prop('disabled', false);
+            $("#loginAlert").hide();
         }
     });
     $("#resultTweets").hide();
     $("#reloadClick").hide();
     this.source = null;
-    function logout(){
-        $.post("/logout", function() {
+
+    function logout() {
+        $.post("/logout", function () {
             $("#user").html('');
             $(".unauthenticated").show();
             $(".authenticated").hide();
         })
         return true;
     }
+
     function cleanUpPrev() {
         $("#cards").empty();
     }
