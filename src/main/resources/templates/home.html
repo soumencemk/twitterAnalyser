@@ -194,9 +194,9 @@
     <hr/>
     <div class="row d-flex justify-content-center">
         <ul class="legend">
-            <li><span class="bg-primary rounded"></span> Positive</li>
-            <li><span class="bg-info rounded"></span> Neutral</li>
-            <li><span class="bg-secondary rounded"></span> Negative</li>
+            <li><span class="bg-success rounded"></span> Positive</li>
+            <li><span class="bg-secondary rounded"></span> Neutral</li>
+            <li><span class="bg-danger rounded"></span> Negative</li>
         </ul>
     </div>
     <hr/>
@@ -260,7 +260,7 @@
         this.source = new EventSource(url);
         this.source.addEventListener("message", function (event) {
             var data = JSON.parse(event.data);
-            var card_style = "border-info";
+            var card_style = "border-secondary";
             if (!data.sentiment) {
                 var sentimentArray = [
                     'Negative',
@@ -270,9 +270,9 @@
                 data.sentiment = sentimentArray[Math.floor(Math.random() * sentimentArray.length)];
             }
             if (data.sentiment && data.sentiment.includes("Negative")) {
-                card_style = "border-secondary";
+                card_style = "border-danger";
             } else if (data.sentiment && data.sentiment.includes("Positive")) {
-                card_style = "border-primary";
+                card_style = "border-success";
             }
             var htmlToAppend = '<div class="card scroll animate__animated animate__backInDown ' + card_style + '">\n' +
                 '  <h5 class="card-header text-center font-weight-bold"><i class="fas fa-user">&nbsp;</i>' + data.userName + '</h5>\n' +
