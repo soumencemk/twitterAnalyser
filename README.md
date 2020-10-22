@@ -3,7 +3,7 @@
 Using Twitter4j and MonkeyLearn API
 Demo : [https://twittersoumen.herokuapp.com/](https://twittersoumen.herokuapp.com/)
 # How to use
-* Register for Twitter4j and Monkey learn age get the API Keys
+* Register for Twitter4j and Monkey learn and get the API Keys
 * Relace the values in `application.properties` and `twitter4j.properties`-
 application.properties:  
 ``` java
