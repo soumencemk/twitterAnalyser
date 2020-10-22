@@ -18,7 +18,6 @@ public class TwitterSentimentAnalyser {
 
     private final MonkeyLearnService monkeyLearnService;
 
-    @Async
     public TweetFeed doAnalysis(TweetFeed msg) throws ExecutionException, InterruptedException {
         CompletableFuture<String> mlFuture = monkeyLearnService.doAnalysis(msg);
         if (mlFuture != null) {
