@@ -11,9 +11,7 @@ import twitter4j.TwitterStreamFactory;
 
 import java.time.Duration;
 import java.util.Queue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author Soumen Karmakar
@@ -37,8 +35,9 @@ public class TwitterGrabberService {
                 {
                     try {
                         Status tweet = queue.poll();
-                        return new TweetFeed(tweet);
+                        return tweet == null ? new TweetFeed() : new TweetFeed(tweet);
                     } catch (Exception e) {
+                        log.error(e);
                         return new TweetFeed();
                     }
                 }).filter(tweetFeed -> "en".equalsIgnoreCase(tweetFeed.getLanguage()))
@@ -46,7 +45,7 @@ public class TwitterGrabberService {
                     try {
                         return analyser.doAnalysis(t);
                     } catch (Exception e) {
-                        System.out.println("monkey learn exception ...");
+                        log.error("monkey learn exception", e);
                         return t;
                     }
                 });

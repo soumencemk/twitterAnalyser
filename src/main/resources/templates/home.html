@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html>
 <head>
     <meta charset="UTF-8">
@@ -92,13 +93,12 @@
         }
 
         .card-columns {
-
-        @include media-breakpoint-only(lg) {
-            column-count: 3;
-        }
-        @include media-breakpoint-only(xl) {
-            column-count: 4;
-        }
+            @include media-breakpoint-only(lg) {
+                column-count: 3;
+            }
+            @include media-breakpoint-only(xl) {
+                column-count: 4;
+            }
         }
         .scroll {
             min-height: 200px;
@@ -180,7 +180,7 @@
 
     <input id="searchText" type="text" class="form-control w-60" placeholder="Search Twitter">
     <button id="searchBtn" type="button" class="btn btn-default btn-sm" onclick="loadTweets();">
-        <i class="fas fa-search"></i></span> Search
+        <i class="fas fa-search"></i> Search
     </button>
 </div>
 <div id="resultTweets" class="all_pad">

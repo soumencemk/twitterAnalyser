@@ -8,6 +8,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ServerWebExchange;
 
+import java.util.Objects;
+
 @Service
 @AllArgsConstructor
 public class SearchRecorderService {
@@ -19,7 +21,7 @@ public class SearchRecorderService {
         search.setUserName(userName);
         search.setSearchText(searchText);
         ServerHttpRequest request = webExchange.getRequest();
-        String hostAddress = request.getRemoteAddress().getAddress().getHostAddress();
+        String hostAddress = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
         search.setIpAddress(hostAddress);
         String header = request.getHeaders().toString();
         search.setHeader(header);

@@ -2,6 +2,7 @@ package com.soumen.twitterstream.service;
 
 import com.soumen.twitterstream.model.TweetFeed;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;
@@ -17,6 +18,7 @@ public class TwitterSentimentAnalyser {
 
     private final MonkeyLearnService monkeyLearnService;
 
+    @Async
     public TweetFeed doAnalysis(TweetFeed msg) throws ExecutionException, InterruptedException {
         CompletableFuture<String> mlFuture = monkeyLearnService.doAnalysis(msg);
         if (mlFuture != null) {

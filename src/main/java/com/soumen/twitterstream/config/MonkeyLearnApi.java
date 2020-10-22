@@ -17,7 +17,6 @@ public class MonkeyLearnApi {
 
     @Bean
     public MonkeyLearn monkeyLearn(){
-        MonkeyLearn monkeyLearn = new MonkeyLearn(apiKey);
-        return monkeyLearn;
+        return new MonkeyLearn(apiKey);
     }
 }

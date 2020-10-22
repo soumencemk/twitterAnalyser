@@ -33,7 +33,7 @@ public class MonkeyLearnService {
             String s = res.arrayResult.toJSONString();
             return CompletableFuture.completedFuture(s);
         } catch (Exception e) {
-            throw new Exception("Monkey Learn service not available...");
+            throw new Exception("Monkey Learn service not available : " + e.getMessage());
         }
     }
 }

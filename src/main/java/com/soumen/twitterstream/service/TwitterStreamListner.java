@@ -7,7 +7,6 @@ import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
 
 import java.util.Queue;
-import java.util.concurrent.BlockingQueue;
 
 /**
  * @author Soumen Karmakar
