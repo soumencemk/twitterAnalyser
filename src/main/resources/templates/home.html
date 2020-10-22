@@ -22,7 +22,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
@@ -150,17 +150,6 @@
             box-shadow: 0 0 11px rgba(33, 33, 33, .2);
         }
 
-        canvas {
-            padding: 0;
-            margin: auto;
-            display: block;
-            width: 600px;
-            height: 400px;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
     </style>
 </head>
 <body class="container">
@@ -212,6 +201,12 @@
             <li><span class="bg-danger rounded"></span> Negative (<label id="negativeCount"/>)</li>
         </ul>
     </div>
+    <hr/>
+    <div class="row d-flex justify-content-center">
+        <div id="piechart" style="width: 900px; height: 500px;"></div>
+    </div>
+    <hr/>
+    <button type="showHideCards" class="btn btn-primary btn-lg btn-block">SHOW TWEETS</button>
     <hr/>
     <div id="cards" class="card-columns"></div>
     <div class="row d-flex justify-content-center">
@@ -306,6 +301,25 @@
             $("#positiveCount").text(positive + ")");
             $("#neutralCount").text(neutral + ")");
             $("#negativeCount").text(negative + ")");
+            // Charts
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Sentiment', 'Percentage'],
+                    ['positive', positive],
+                    ['neutral', neutral],
+                    ['negative', negative]
+                ]);
+
+                var options = {
+                    title: 'Tweet Sentiments'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
         });
     }
 
@@ -313,6 +327,15 @@
         $("#loading").hide();
         this.source.close();
     }
+
+    $("#showHideCards").click(function(){
+        if($("#showHideCards").text() == "SHOW TWEETS"){
+            $("#showHideCards").text("HIDE TWEETS");
+        }else{
+            $("#showHideCards").text("SHOW TWEETS");
+        }
+        $("#cards").toggle();
+    });
 </script>
 </body>
 </html>
