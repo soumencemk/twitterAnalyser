@@ -206,7 +206,7 @@
         <div id="piechart" style="width: 900px; height: 500px;"></div>
     </div>
     <hr/>
-    <button type="showHideCards" class="btn btn-primary btn-lg btn-block">SHOW TWEETS</button>
+    <button type="showHideCards" class="btn btn-primary btn-lg btn-block" onclick="showHideToggle();">SHOW TWEETS</button>
     <hr/>
     <div id="cards" class="card-columns"></div>
     <div class="row d-flex justify-content-center">
@@ -232,6 +232,7 @@
     $("#loginAlert").show();
     $(".unauthenticated").show();
     $(".authenticated").hide();
+    $("#cards").hide();
     $.get("/user", function (data) {
         if (data.name) {
             $("#user").html(data.name);
@@ -328,14 +329,15 @@
         this.source.close();
     }
 
-    $("#showHideCards").click(function(){
+    function showHideToggle(){
         if($("#showHideCards").text() == "SHOW TWEETS"){
             $("#showHideCards").text("HIDE TWEETS");
+            $("#cards").show();
         }else{
             $("#showHideCards").text("SHOW TWEETS");
+            $("#cards").hide();
         }
-        $("#cards").toggle();
-    });
+    }
 </script>
 </body>
 </html>
