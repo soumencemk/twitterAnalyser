@@ -8,8 +8,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ServerWebExchange;
 
-import java.util.List;
-
 @Service
 @AllArgsConstructor
 public class SearchRecorderService {
