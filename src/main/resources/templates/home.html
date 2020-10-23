@@ -206,6 +206,8 @@
         <div id="piechart" style="width: 900px; height: 500px;"></div>
     </div>
     <hr/>
+    <button type="showHideCards" class="btn btn-primary btn-lg btn-block" onclick="showHideToggle();">SHOW TWEETS</button>
+    <hr/>
     <div id="cards" class="card-columns"></div>
     <div class="row d-flex justify-content-center">
         <div id="loading" class="loader"></div>
@@ -230,6 +232,7 @@
     $("#loginAlert").show();
     $(".unauthenticated").show();
     $(".authenticated").hide();
+    $("#cards").hide();
     $.get("/user", function (data) {
         if (data.name) {
             $("#user").html(data.name);
@@ -239,8 +242,8 @@
             $("#loginAlert").hide();
         }
     });
-    $("#resultTweets").show();
-    $("#reloadClick").show();
+    $("#resultTweets").hide();
+    $("#reloadClick").hide();
     this.source = null;
 
     function logout() {
@@ -317,7 +320,6 @@
 
                 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
                 chart.draw(data, options);
-                $("#piechart").focus();
             }
         });
     }
@@ -325,6 +327,16 @@
     function cancelLoad() {
         $("#loading").hide();
         this.source.close();
+    }
+
+    function showHideToggle(){
+        if($("#showHideCards").text() == "SHOW TWEETS"){
+            $("#showHideCards").text("HIDE TWEETS");
+            $("#cards").show();
+        }else{
+            $("#showHideCards").text("SHOW TWEETS");
+            $("#cards").hide();
+        }
     }
 </script>
 </body>
