@@ -1,16 +1,12 @@
 # Twitter Stream analyser ![Java CI with Maven](https://github.com/soumencemk/twitterAnalyser/workflows/Java%20CI%20with%20Maven/badge.svg)
 
-Using Twitter4j and MonkeyLearn API
+Using Twitter4j and ![Stanford NLP Library](https://stanfordnlp.github.io/)
+
 Demo : [https://twittersoumen.herokuapp.com/](https://twittersoumen.herokuapp.com/)
 # How to use
-* Register for Twitter4j and Monkey learn and get the API Keys
-* Relace the values in `application.properties` and `twitter4j.properties`-
-application.properties:  
-``` java
-# Monkey Learn --
-monkeylearn.apikey=<EnterAPIKey>
-monkeylearn.model_id=<Enter Model ID>
-```
+* Register for Twitter4j and get the API Keys
+* Relace the values in `twitter4j.properties`-
+
 twitter4j.properties
 ``` java
 oauth.consumerKey=<>

@@ -1,11 +1,11 @@
 package com.soumen.twitterstream.service;
 
+import com.soumen.twitterstream.model.Sentiments;
 import com.soumen.twitterstream.model.TweetFeed;
+import com.soumen.twitterstream.util.TweetCleaner;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -16,14 +16,12 @@ import java.util.concurrent.ExecutionException;
 @RequiredArgsConstructor
 public class TwitterSentimentAnalyser {
 
-    private final MonkeyLearnService monkeyLearnService;
+    private final StanfordCoreNLPService stanfordCoreNLPService;
 
-    public TweetFeed doAnalysis(TweetFeed msg) throws ExecutionException, InterruptedException {
-        CompletableFuture<String> mlFuture = monkeyLearnService.doAnalysis(msg);
-        if (mlFuture != null) {
-            CompletableFuture.allOf(mlFuture).join();
-            msg.setSentiment(mlFuture.get());
-        }
-        return msg;
+    public TweetFeed doAnalysis(TweetFeed tweetFeed) {
+        tweetFeed.setMessageTxt(TweetCleaner.cleanTweet(tweetFeed.getMessageTxt()));
+        int sentiment = stanfordCoreNLPService.analyse(tweetFeed.getMessageTxt());
+        tweetFeed.setSentiment(Sentiments.getSentiment(sentiment));
+        return tweetFeed;
     }
 }
