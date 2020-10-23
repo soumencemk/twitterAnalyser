@@ -336,9 +336,11 @@
                 '</div>';
             $("#cards").append(htmlToAppend);
             $("#reloadClick").get(0).scrollIntoView();
+            $("#veryPositiveCount").text(very_positive + ")");
             $("#positiveCount").text(positive + ")");
             $("#neutralCount").text(neutral + ")");
             $("#negativeCount").text(negative + ")");
+            $("#veryNegativeCount").text(very_negative + ")");
             // Charts
             google.charts.load('current', {'packages': ['corechart']});
             google.charts.setOnLoadCallback(drawChart);
@@ -346,9 +348,11 @@
             function drawChart() {
                 var data = google.visualization.arrayToDataTable([
                     ['Sentiment', 'Percentage'],
+                    ['very positive', very_positive],
                     ['positive', positive],
                     ['neutral', neutral],
-                    ['negative', negative]
+                    ['negative', negative],
+                    ['Very negative', very_negative]
                 ]);
 
                 var options = {
