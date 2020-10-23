@@ -20,7 +20,7 @@ public class TwitterSentimentAnalyser {
 
     public TweetFeed doAnalysis(TweetFeed tweetFeed) {
         tweetFeed.setMessageTxt(TweetCleaner.cleanTweet(tweetFeed.getMessageTxt()));
-        int sentiment = stanfordCoreNLPService.analyse(tweetFeed.getMessageTxt());
+        Integer sentiment = stanfordCoreNLPService.analyse(tweetFeed.getMessageTxt());
         tweetFeed.setSentiment(Sentiments.getSentiment(sentiment));
         return tweetFeed;
     }

@@ -13,12 +13,14 @@ public enum Sentiments {
         this.value = i;
     }
 
-    public static Sentiments getSentiment(int n) {
-        for (Sentiments elem : values()) {
-            if (elem.value == n) {
-                return elem;
+    public static Sentiments getSentiment(Integer n) {
+        if (n != null) {
+            for (Sentiments elem : values()) {
+                if (elem.value == n) {
+                    return elem;
+                }
             }
         }
-        return null;
+        return Neutral;
     }
 }

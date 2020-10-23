@@ -277,8 +277,8 @@
             $("#loginAlert").hide();
         }
     });
-    $("#resultTweets").hide();
-    $("#reloadClick").hide();
+    $("#resultTweets").show();
+    $("#reloadClick").show();
     this.source = null;
 
     function logout() {
@@ -309,22 +309,23 @@
         $("#neutralCount").text(neutral + ")");
         $("#negativeCount").text(negative + ")");
         $("#veryNegativeCount").text(very_negative + ")");
+
         this.source.addEventListener("message", function (event) {
             var data = JSON.parse(event.data);
             var card_style = "border-secondary";
-            if (data.sentiment && data.sentiment.includes("0")) {
+            if (data.sentiment && data.sentiment.includes("Very_Negative")) {
                 card_style = "border-danger";
                 very_negative++;
-            } else if (data.sentiment && data.sentiment.includes("1")) {
+            } else if (data.sentiment && data.sentiment.includes("Negative")) {
                 card_style = "border-warning";
                 negative++;
-            } else if (data.sentiment && data.sentiment.includes("2")) {
+            } else if (data.sentiment && data.sentiment.includes("Neutral")) {
                 card_style = "border-secondary";
                 neutral++;
-            } else if (data.sentiment && data.sentiment.includes("3")) {
+            } else if (data.sentiment && data.sentiment.includes("Positive")) {
                 card_style = "border-primary";
                 positive++;
-            } else if (data.sentiment && data.sentiment.includes("4")) {
+            } else if (data.sentiment && data.sentiment.includes("Very_Positive")) {
                 card_style = "border-success";
                 very_positive++;
             }
@@ -341,10 +342,9 @@
             $("#neutralCount").text(neutral + ")");
             $("#negativeCount").text(negative + ")");
             $("#veryNegativeCount").text(very_negative + ")");
-            // Charts
+
             google.charts.load('current', {'packages': ['corechart']});
             google.charts.setOnLoadCallback(drawChart);
-
             function drawChart() {
                 var data = google.visualization.arrayToDataTable([
                     ['Sentiment', 'Percentage'],
