@@ -151,10 +151,11 @@
         }
 
         /* Important part */
-        .modal-dialog{
+        .modal-dialog {
             overflow-y: initial !important
         }
-        .modal-body{
+
+        .modal-body {
             height: 80vh;
             overflow-y: auto;
         }
@@ -224,9 +225,14 @@
                 <div class="modal-body">
                     <div class="row d-flex justify-content-center sticky-top alert alert-info">
                         <ul class="legend">
-                            <li><span class="bg-success rounded"></span> Positive (<label id="positiveCount"/>)</li>
+                            <li><span class="bg-success rounded"></span> Very Positive (<label id="veryPositiveCount"/>)
+                            </li>
+                            <li><span class="bg-primary rounded"></span> Positive (<label id="positiveCount"/>)</li>
                             <li><span class="bg-secondary rounded"></span> Neutral (<label id="neutralCount"/>)</li>
-                            <li><span class="bg-danger rounded"></span> Negative (<label id="negativeCount"/>)</li>
+                            <li><span class="bg-warning rounded"></span> Negative (<label id="negativeCount"/>)</li>
+                            <li><span class="bg-danger rounded"></span> Very Negative (<label id="veryNegativeCount"/>)
+                            </li>
+
                         </ul>
                     </div>
                     <div id="cards" class="card-columns"></div>
@@ -296,30 +302,32 @@
         $("#cards").show();
         text = $("#searchText").val();
         url = "/tweets/" + text;
-        var positive = 0, neutral = 0, negative = 0;
+        var very_positive = 0, positive = 0, neutral = 0, negative = 0, very_negative = 0;
         this.source = new EventSource(url);
+        $("#veryPositiveCount").text(very_positive + ")");
         $("#positiveCount").text(positive + ")");
         $("#neutralCount").text(neutral + ")");
         $("#negativeCount").text(negative + ")");
+        $("#veryNegativeCount").text(very_negative + ")");
+
         this.source.addEventListener("message", function (event) {
             var data = JSON.parse(event.data);
             var card_style = "border-secondary";
-            if (!data.sentiment) {
-                var sentimentArray = [
-                    'Negative',
-                    'Positive',
-                    'Neutral'
-                ];
-                data.sentiment = sentimentArray[Math.floor(Math.random() * sentimentArray.length)];
-            }
-            if (data.sentiment && data.sentiment.includes("Negative")) {
+            if (data.sentiment && data.sentiment.includes("Very_Negative")) {
                 card_style = "border-danger";
+                very_negative++;
+            } else if (data.sentiment && data.sentiment.includes("Negative")) {
+                card_style = "border-warning";
                 negative++;
-            } else if (data.sentiment && data.sentiment.includes("Positive")) {
-                card_style = "border-success";
-                positive++;
-            } else {
+            } else if (data.sentiment && data.sentiment.includes("Neutral")) {
+                card_style = "border-secondary";
                 neutral++;
+            } else if (data.sentiment && data.sentiment.includes("Positive")) {
+                card_style = "border-primary";
+                positive++;
+            } else if (data.sentiment && data.sentiment.includes("Very_Positive")) {
+                card_style = "border-success";
+                very_positive++;
             }
             var htmlToAppend = '<div class="card scroll animate__animated animate__backInDown ' + card_style + '">\n' +
                 '  <h5 class="card-header text-center font-weight-bold"><i class="fas fa-user">&nbsp;</i>' + data.userName + '</h5>\n' +
@@ -329,19 +337,22 @@
                 '</div>';
             $("#cards").append(htmlToAppend);
             $("#reloadClick").get(0).scrollIntoView();
+            $("#veryPositiveCount").text(very_positive + ")");
             $("#positiveCount").text(positive + ")");
             $("#neutralCount").text(neutral + ")");
             $("#negativeCount").text(negative + ")");
-            // Charts
+            $("#veryNegativeCount").text(very_negative + ")");
+
             google.charts.load('current', {'packages': ['corechart']});
             google.charts.setOnLoadCallback(drawChart);
-
             function drawChart() {
                 var data = google.visualization.arrayToDataTable([
                     ['Sentiment', 'Percentage'],
+                    ['very positive', very_positive],
                     ['positive', positive],
                     ['neutral', neutral],
-                    ['negative', negative]
+                    ['negative', negative],
+                    ['Very negative', very_negative]
                 ]);
 
                 var options = {

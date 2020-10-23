@@ -1,3 +1,4 @@
+/*
 package com.soumen.twitterstream.config;
 
 import org.springframework.context.annotation.Bean;
@@ -6,10 +7,12 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
+*/
 /**
  * @author Soumen Karmakar
  * 21/05/2020
- */
+ *//*
+
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
@@ -25,3 +28,4 @@ public class SecurityConfig {
                 .build();
     }
 }
+*/

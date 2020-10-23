@@ -45,7 +45,7 @@ public class TwitterGrabberService {
                     try {
                         return analyser.doAnalysis(t);
                     } catch (Exception e) {
-                        log.error("monkey learn exception", e);
+                        log.error("Exception ", e);
                         return t;
                     }
                 });

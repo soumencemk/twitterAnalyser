@@ -19,7 +19,7 @@ public class TweetFeed {
     private String messageTxt;
     private String userLocation;
     private String language;
-    private String sentiment;
+    private Sentiments sentiment;
 
     public TweetFeed(Status status) {
         setUserId(String.valueOf(status.getUser().getId()));

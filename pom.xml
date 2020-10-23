@@ -17,6 +17,7 @@
     <properties>
         <java.version>8</java.version>
         <spring-cloud.version>Hoxton.SR4</spring-cloud.version>
+        <stanford.corenlp.version>3.9.2</stanford.corenlp.version>
     </properties>
 
     <dependencies>
@@ -37,10 +38,17 @@
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.monkeylearn</groupId>
-            <artifactId>monkeylearn-java</artifactId>
-            <version>0.1.5</version>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>${stanford.corenlp.version}</version>
         </dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>${stanford.corenlp.version}</version>
+            <classifier>models</classifier>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>

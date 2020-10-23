@@ -30,7 +30,7 @@ public class Controller {
 
     @GetMapping(value = "/tweets/{text}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<TweetFeed> streamOfTweets(@PathVariable String text, @AuthenticationPrincipal OAuth2User principal, ServerWebExchange webExchange) {
-        searchRecorderService.recordSearch(principal.getAttribute("name"), text,webExchange);
+        searchRecorderService.recordSearch(principal.getAttribute("name"), text, webExchange);
         return twitterGrabberService.grabTweets(text);
 
     }
