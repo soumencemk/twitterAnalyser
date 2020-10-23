@@ -344,7 +344,11 @@
                 ]);
 
                 var options = {
-                    title: 'Tweet Sentiments'
+                    title: 'Tweet Sentiments',
+                    animation:{
+                        duration: 1000,
+                        easing: 'out',
+                    }
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
