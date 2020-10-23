@@ -150,6 +150,14 @@
             box-shadow: 0 0 11px rgba(33, 33, 33, .2);
         }
 
+        /* Important part */
+        .modal-dialog{
+            overflow-y: initial !important
+        }
+        .modal-body{
+            height: 80vh;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body class="container">
@@ -194,21 +202,41 @@
     <hr/>
     <h3 class="display-6" align="center"> Tweets</h3>
     <hr/>
-    <div class="row d-flex justify-content-center">
-        <ul class="legend">
-            <li><span class="bg-success rounded"></span> Positive (<label id="positiveCount"/>)</li>
-            <li><span class="bg-secondary rounded"></span> Neutral (<label id="neutralCount"/>)</li>
-            <li><span class="bg-danger rounded"></span> Negative (<label id="negativeCount"/>)</li>
-        </ul>
-    </div>
     <hr/>
     <div class="row d-flex justify-content-center">
         <div id="piechart" style="width: 900px; height: 500px;"></div>
     </div>
     <hr/>
-    <button type="showHideCards" class="btn btn-primary btn-lg btn-block" onclick="showHideToggle();">SHOW TWEETS</button>
+    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModalLong">
+        Show Tweets
+    </button>
     <hr/>
-    <div id="cards" class="card-columns"></div>
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Tweets</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row d-flex justify-content-center sticky-top alert alert-info">
+                        <ul class="legend">
+                            <li><span class="bg-success rounded"></span> Positive (<label id="positiveCount"/>)</li>
+                            <li><span class="bg-secondary rounded"></span> Neutral (<label id="neutralCount"/>)</li>
+                            <li><span class="bg-danger rounded"></span> Negative (<label id="negativeCount"/>)</li>
+                        </ul>
+                    </div>
+                    <div id="cards" class="card-columns"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row d-flex justify-content-center">
         <div id="loading" class="loader"></div>
     </div>
@@ -232,6 +260,7 @@
     $("#loginAlert").show();
     $(".unauthenticated").show();
     $(".authenticated").hide();
+    $("#piechart").hide();
     $("#cards").hide();
     $.get("/user", function (data) {
         if (data.name) {
@@ -264,6 +293,7 @@
         $("#loading").show();
         $("#reloadClick").show();
         $("#resultTweets").show();
+        $("#cards").show();
         text = $("#searchText").val();
         url = "/tweets/" + text;
         var positive = 0, neutral = 0, negative = 0;
@@ -320,6 +350,7 @@
 
                 var chart = new google.visualization.PieChart(document.getElementById('piechart'));
                 chart.draw(data, options);
+                $("#piechart").show();
             }
         });
     }
@@ -327,16 +358,6 @@
     function cancelLoad() {
         $("#loading").hide();
         this.source.close();
-    }
-
-    function showHideToggle(){
-        if($("#showHideCards").text() == "SHOW TWEETS"){
-            $("#showHideCards").text("HIDE TWEETS");
-            $("#cards").show();
-        }else{
-            $("#showHideCards").text("SHOW TWEETS");
-            $("#cards").hide();
-        }
     }
 </script>
 </body>
