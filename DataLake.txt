@@ -1,0 +1,23 @@
+Atlas AWS Account ARN: arn:aws:iam::536727724300:root
+Your unique External ID: 32a94084-5f5b-495b-80d2-34525072597c
+
+===============
+
+role-trust-policy.json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::536727724300:root"
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": "32a94084-5f5b-495b-80d2-34525072597c"
+        }
+      }
+    }
+  ]
+}
