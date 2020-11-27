@@ -5,6 +5,7 @@ import com.soumen.twitterstream.service.TwitterGrabberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import reactor.core.publisher.Flux;
 
 /**
@@ -22,7 +23,6 @@ public class Controller {
     @CrossOrigin
     public Flux<TweetFeed> streamOfTweets(@PathVariable String text) {
         return twitterGrabberService.grabTweets(text);
-
     }
 }
 
