@@ -1,4 +1,5 @@
-# Twitter Stream analyser ![Java CI with Maven](https://github.com/soumencemk/twitterAnalyser/workflows/Java%20CI%20with%20Maven/badge.svg)
+# Twitter Stream analyser 
+![Java CI with Maven](https://github.com/soumencemk/twitterAnalyser/workflows/Java%20CI%20with%20Maven/badge.svg) ![GitHub language count](https://img.shields.io/github/languages/count/soumencemk/twitterAnalyser?style=plastic)
 
 Using Twitter4j and ![Stanford NLP Library](https://stanfordnlp.github.io/)
 
