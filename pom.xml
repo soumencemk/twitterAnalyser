@@ -17,7 +17,7 @@
     <properties>
         <java.version>8</java.version>
         <spring-cloud.version>Hoxton.SR4</spring-cloud.version>
-        <stanford.corenlp.version>3.9.2</stanford.corenlp.version>
+        <stanford.corenlp.version>4.4.0</stanford.corenlp.version>
     </properties>
 
     <dependencies>
