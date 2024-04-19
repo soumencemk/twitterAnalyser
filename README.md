@@ -3,7 +3,6 @@
 
 Using Twitter4j and ![Stanford NLP Library](https://stanfordnlp.github.io/)
 
-Demo : [https://twittersoumen.herokuapp.com/](https://twittersoumen.herokuapp.com/)
 # How to use
 * Register for Twitter4j and get the API Keys
 * Relace the values in `twitter4j.properties`-
